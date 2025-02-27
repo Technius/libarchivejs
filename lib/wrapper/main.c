@@ -80,7 +80,11 @@ EMSCRIPTEN_KEEPALIVE
 void *start_archive_write(char *filter, char *format, void *buff, size_t buffsize, size_t *outputsize, char *passphrase){
   struct archive *a;
   a = archive_write_new();
-  archive_write_add_filter_by_name(a, filter);
+
+  // skip "none" filter as it is not an actual write filter.
+  if (strcmp(filter, "none") != 0) {
+    archive_write_add_filter_by_name(a, filter);
+  }
   archive_write_set_format_by_name(a, format);
 
   if(passphrase){

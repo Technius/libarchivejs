@@ -44,11 +44,12 @@
         let obj = null;
         try {
           const file = e.currentTarget.files[0];
+          const { outputFileName, compression, format } = window.testOptions;
           const archiveFile = await Archive.write({
             files: [{ file }],
-            outputFileName: "test.tar.gz",
-            compression: ArchiveCompression.GZIP,
-            format: ArchiveFormat.USTAR,
+            outputFileName,
+            compression,
+            format,
             passphrase: null,
           });
 

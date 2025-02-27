@@ -39,6 +39,27 @@ describe("extract various compression types", () => {
   test("create new tar.gz archive", async () => {
     await navigate(page, "write-archive.html");
     await inputFile("archives/README.md", page);
+    await page.evaluate(() => {
+      window.testOptions = {
+        outputFileName: "test.tar.gz",
+        compression: "gzip",
+        format: "ustar",
+      };
+    });
+    const checksums = await response(page);
+    expect(checksums["README.md"]).toEqual(checksum["README.md"]);
+  }, 10000);
+
+  test("create new zip archive", async () => {
+    await navigate(page, "write-archive.html");
+    await inputFile("archives/README.md", page);
+    await page.evaluate(() => {
+      window.testOptions = {
+        outputFileName: "test.zip",
+        compression: "none",
+        format: "zip",
+      };
+    });
     const checksums = await response(page);
     expect(checksums["README.md"]).toEqual(checksum["README.md"]);
   }, 10000);
