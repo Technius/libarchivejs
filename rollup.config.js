@@ -44,6 +44,7 @@ export default [
       {
         file: "dist/libarchive.js",
         format: "es",
+        sourcemap: true,
       },
     ],
     plugins: [typescript(), nodeResolve()].concat(
@@ -56,6 +57,7 @@ export default [
       {
         file: "dist/libarchive-node.mjs",
         format: "es",
+        sourcemap: true,
       },
     ],
     plugins: [typescript(), nodeResolve()].concat(

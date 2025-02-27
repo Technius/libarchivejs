@@ -10,3 +10,4 @@ import{Worker as e}from"worker_threads";import{URL as t}from"url";
  * SPDX-License-Identifier: Apache-2.0
  */
 function(e){const t=new WeakMap;return{postMessage:e.postMessage.bind(e),addEventListener:(n,r)=>{const s=e=>{"handleEvent"in r?r.handleEvent({data:e}):r({data:e})};e.on("message",s),t.set(r,s)},removeEventListener:(n,r)=>{const s=t.get(r);s&&(e.off("message",s),t.delete(r))},start:e.start&&e.start.bind(e)}}(e))});export{z as Archive,O as ArchiveCompression,L as ArchiveFormat};
+//# sourceMappingURL=libarchive-node.mjs.map
