@@ -9,8 +9,9 @@
     "strict": true,
     "module": "esnext",
     "noEmitOnError": true,
-    "lib": ["es2017", "WebWorker"],
+    "lib": ["es2017", "dom"],
     "esModuleInterop": false
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/webworker"]
 }
