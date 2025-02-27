@@ -1,4 +1,4 @@
-FROM emscripten/emsdk
+FROM emscripten/emsdk:4.0.4
 
 WORKDIR /opt
 
