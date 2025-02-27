@@ -10,6 +10,7 @@ export default [
       {
         file: "dist/worker-bundle.js",
         format: "es",
+        sourcemap: true,
       },
     ],
     plugins: [
@@ -27,6 +28,7 @@ export default [
       {
         file: "dist/worker-bundle-node.mjs",
         format: "es",
+        sourcemap: true,
       },
     ],
     plugins: [

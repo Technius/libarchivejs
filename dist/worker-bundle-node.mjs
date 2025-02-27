@@ -10,3 +10,4 @@ import{parentPort as e}from"worker_threads";
  * SPDX-License-Identifier: Apache-2.0
  */
 function(e){const r=new WeakMap;return{postMessage:e.postMessage.bind(e),addEventListener:(t,n)=>{const o=e=>{"handleEvent"in n?n.handleEvent({data:e}):n({data:e})};e.on("message",o),r.set(n,o)},removeEventListener:(t,n)=>{const o=r.get(n);o&&(e.off("message",o),r.delete(n))},start:e.start&&e.start.bind(e)}}(e));
+//# sourceMappingURL=worker-bundle-node.mjs.map
