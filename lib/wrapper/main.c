@@ -102,8 +102,10 @@ void write_archive_file( void *a, char *pathname, size_t filesize , void *fileda
   archive_entry_set_perm(entry, 0644);
   archive_write_header(a, entry);
   int write_output = archive_write_data(a, filedata, filesize);
-  if( write_output != filesize ) {
-    fprintf(stderr, "Error occured while writing file, written bytes don't match file size\n");
+  if( write_output < ARCHIVE_OK ) {
+    fprintf(stderr, "Error writing file: %s\n", archive_error_string(a));
+  } else if( write_output != filesize ) {
+    fprintf(stderr, "Error occured while writing file, written bytes (%d) don't match file size (%zu)\n", write_output, filesize);
   }
 
   archive_entry_free(entry);
