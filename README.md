@@ -160,3 +160,21 @@ Libarchivejs is a port of the popular [libarchive](https://github.com/libarchive
 Only when you actually open archive file will the web worker be spawned and WASM module will be downloaded. Each `Archive.open` call corresponds to each WebWorker.
 
 After calling an `extractFiles` worker, it will be terminated to free up memory. The client will still work with cached data.
+
+## Updating the WASM file
+
+The WASM file is built from the files in `lib/wrapper/` using [emscripten](https://emscripten.org/), which will also require building libarchive with the latter.
+
+To make this process easier, you can use the Docker image in `lib/tools/docker` to get a development environment:
+
+```sh
+# Step 1: build the Docker image
+# (you only need to do this on the first time or if you change the Dockerfile)
+pushd lib/tools/docker
+docker build . -t libarchive-llvm
+popd
+
+# Step 2: use the wasm_gen.sh script to perform compilation
+# This will update the files in lib/build and src/webworker/wasm-gen
+bash lib/tools/wasm_gen.sh
+```
