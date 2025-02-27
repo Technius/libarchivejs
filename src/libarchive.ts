@@ -10,7 +10,7 @@ export type ArchiveOptions = {
 };
 
 export type ArchiveEntryFile = {
-  file: ArchiveEntryFile;
+  file: File;
   pathname?: string;
 };
 

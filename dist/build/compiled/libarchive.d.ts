@@ -7,7 +7,7 @@ export type ArchiveOptions = {
     createClient?: (worker: any) => any;
 };
 export type ArchiveEntryFile = {
-    file: ArchiveEntryFile;
+    file: File;
     pathname?: string;
 };
 export type ArchiveWriteOptions = {
