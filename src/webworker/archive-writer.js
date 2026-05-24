@@ -42,12 +42,15 @@ export class ArchiveWriter {
       newArchive,
       outputSizePtr,
     );
+    this._wasmModule._free(outputSizePtr);
 
     if (outputSize < 0) {
       throw new Error(this._runCode.getError(newArchive));
     }
 
-    return this._wasmModule.HEAPU8.slice(bufferPtr, bufferPtr + outputSize);
+    const data = this._wasmModule.HEAPU8.slice(bufferPtr, bufferPtr + outputSize);
+    this._wasmModule._free(bufferPtr);
+    return data;
   }
 
   async _loadFile(file) {
