@@ -11,9 +11,20 @@ export class ArchiveWriter {
   }
 
   async write(files, compression, format, passphrase = null) {
+    // Estimate upper bound on size based on zip file fomrat
     // In some cases archive size might be bigger than the sum of all files due to header size
+    const utf8encoder = new TextEncoder();
     let totalSize =
-      files.reduce((acc, { file }) => acc + file.size + 128, 0) + 128;
+      files.reduce((acc, { file, pathname }) => {
+        // Account for overhead from compression algorithm
+        // Use a simple overapproximation of the zlib overhead
+        let fileSize = Math.ceil(file.size * 1.01) + 32;
+
+        // File name: assume UTF-8
+        const nameSize = utf8encoder.encode(pathname || file.name.length).length;
+        let headerSize = nameSize * 2 + 128;  // name is stored twice in zip files
+        return acc + fileSize + headerSize;
+      }, /*end of directory records + extra margin*/ 256 + 65565);
 
     const bufferPtr = this._runCode.malloc(totalSize);
     const outputSizePtr = this._runCode.malloc(this._runCode.sizeOfSizeT());
